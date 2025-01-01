@@ -51,8 +51,11 @@ const MapView: React.FC = () => {
   }, []);
 
   const handleSearchClick = () => {
-    history.push("/search");
     setShowSearch(true);
+    // More time out hacks for workarounds
+    setTimeout(() => {
+      history.push("/search");
+    }, 100);
   };
 
   return (
