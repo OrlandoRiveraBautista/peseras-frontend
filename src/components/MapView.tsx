@@ -15,11 +15,16 @@ import {
 } from "react-leaflet";
 import { LatLngExpression, LatLngBounds } from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+/* Components */
 import RouteDetails from "./RouteDetails";
 import StopSearch from "./StopSearch";
 
 /* Styles */
 import "./MapView.scss";
+
+/* Misc */
+import { routes } from "../misc/routeData";
 
 const MapView: React.FC = () => {
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
@@ -28,52 +33,6 @@ const MapView: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
 
   const matamorosCoords: LatLngExpression = [25.869, -97.5027];
-
-  const routes: {
-    id: string;
-    name: string;
-    path: LatLngExpression[];
-    color: string;
-  }[] = [
-    {
-      id: "purple",
-      name: "Ruta Norte",
-      path: [
-        [25.879, -97.5127],
-        [25.879, -97.5027],
-        [25.879, -97.4927],
-      ],
-      color: "#8E44AD",
-    },
-    {
-      id: "blue",
-      name: "Ruta Centro",
-      path: [
-        [25.879, -97.5027],
-        [25.869, -97.5027],
-        [25.859, -97.4927],
-      ],
-      color: "#3498DB",
-    },
-    {
-      id: "green",
-      name: "Ruta Sur",
-      path: [
-        [25.859, -97.4927],
-        [25.849, -97.4927],
-      ],
-      color: "#2ECC71",
-    },
-    {
-      id: "yellow",
-      name: "Ruta Este",
-      path: [
-        [25.869, -97.4827],
-        [25.869, -97.4727],
-      ],
-      color: "#F1C40F",
-    },
-  ];
 
   const MapContent: React.FC = () => {
     const map = useMap();
