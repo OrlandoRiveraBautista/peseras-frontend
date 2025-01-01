@@ -19,7 +19,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import MapView from "./components/MapView";
+import MapView from "./components/MapView/MapView";
 import RouteDetails from "./components/RouteDetails";
 import StopSearch from "./components/StopSearch";
 
