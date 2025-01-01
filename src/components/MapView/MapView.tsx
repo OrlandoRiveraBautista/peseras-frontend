@@ -14,67 +14,28 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { LatLngExpression, LatLngBounds } from "leaflet";
-import "leaflet/dist/leaflet.css";
 
 /* Components */
-import RouteDetails from "./RouteDetails";
-import StopSearch from "./StopSearch";
+import RouteDetails from "../RouteDetails";
+import StopSearch from "../StopSearch";
+import MapRoutes from "./MapRoutes";
 
 /* Styles */
 import "./MapView.scss";
+import "leaflet/dist/leaflet.css";
 
 /* Misc */
-import { routes } from "../misc/routeData";
+import { routes } from "../../misc/routeData";
 
 const MapView: React.FC = () => {
+  // state
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
   const [showSearch, setShowSearch] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false);
+
+  // refs
   const modal = useRef<HTMLIonModalElement>(null);
 
   const matamorosCoords: LatLngExpression = [25.869, -97.5027];
-
-  const MapContent: React.FC = () => {
-    const map = useMap();
-    const mapEvents = useMapEvents({
-      click: () => {
-        if (selectedRoute) {
-          setSelectedRoute(null);
-        }
-      },
-    });
-
-    useEffect(() => {
-      if (!mapLoaded) {
-        const bounds = new LatLngBounds(routes.flatMap((route) => route.path));
-
-        // Wait for tile layer to load before fitting bounds
-        map.whenReady(() => {
-          map.fitBounds(bounds, { padding: [50, 50] });
-        });
-
-        setMapLoaded(true);
-      }
-    }, [map, mapLoaded]);
-
-    const memoizedRoutes = useMemo(() => {
-      return routes.map((route) => (
-        <Polyline
-          key={route.id}
-          positions={route.path}
-          pathOptions={{ color: route.color, weight: 5, opacity: 0.8 }}
-          eventHandlers={{
-            click: (e) => {
-              e.originalEvent.stopPropagation();
-              setSelectedRoute(route.id);
-            },
-          }}
-        />
-      ));
-    }, []);
-
-    return <>{memoizedRoutes}</>;
-  };
 
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -83,7 +44,7 @@ const MapView: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        {!mapLoaded && (
+        {/* {!mapLoaded && (
           <div
             style={{
               position: "absolute",
@@ -100,7 +61,7 @@ const MapView: React.FC = () => {
           >
             Loading map...
           </div>
-        )}
+        )} */}
         <MapContainer
           center={matamorosCoords}
           zoom={14}
@@ -124,7 +85,7 @@ const MapView: React.FC = () => {
             //   load: () => map.invalidateSize(),
             // }}
           />
-          <MapContent />
+          <MapRoutes onSelect={setSelectedRoute} />
         </MapContainer>
 
         <IonFab
