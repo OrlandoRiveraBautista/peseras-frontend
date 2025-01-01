@@ -34,6 +34,7 @@ const MapView: React.FC = () => {
 
   const matamorosCoords: LatLngExpression = [25.869, -97.5027];
 
+  // This useEffect handles setting the modal to open when the search route is called
   useEffect(() => {
     if (location.pathname === "/search") {
       setShowSearch(true);
@@ -57,24 +58,6 @@ const MapView: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        {/* {!mapLoaded && (
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "#f4f4f4",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              zIndex: 1001,
-            }}
-          >
-            Loading map...
-          </div>
-        )} */}
         {!mapLoaded ? (
           <>Loading...</>
         ) : (
@@ -97,9 +80,6 @@ const MapView: React.FC = () => {
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              // eventHandlers={{
-              //   load: () => map.invalidateSize(),
-              // }}
             />
             <MapRoutes onSelect={setSelectedRoute} />
           </MapContainer>
