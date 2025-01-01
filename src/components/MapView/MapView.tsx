@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef } from "react";
 import {
   IonContent,
   IonPage,
@@ -6,14 +6,8 @@ import {
   IonFab,
   IonFabButton,
 } from "@ionic/react";
-import {
-  MapContainer,
-  TileLayer,
-  Polyline,
-  useMap,
-  useMapEvents,
-} from "react-leaflet";
-import { LatLngExpression, LatLngBounds } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { LatLngExpression } from "leaflet";
 
 /* Components */
 import RouteDetails from "../RouteDetails";
@@ -23,9 +17,6 @@ import MapRoutes from "./MapRoutes";
 /* Styles */
 import "./MapView.scss";
 import "leaflet/dist/leaflet.css";
-
-/* Misc */
-import { routes } from "../../misc/routeData";
 
 const MapView: React.FC = () => {
   // state
