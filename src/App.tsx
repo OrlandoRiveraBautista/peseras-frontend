@@ -20,8 +20,6 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 import MapView from "./components/MapView/MapView";
-import RouteDetails from "./components/RouteDetails";
-import StopSearch from "./components/StopSearch";
 
 setupIonicReact();
 
@@ -30,9 +28,7 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/" component={MapView} />
-          <Route path="/route/:id" component={RouteDetails} />
-          <Route path="/search" component={StopSearch} />
+          <Route path="/" component={MapView} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
