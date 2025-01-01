@@ -23,6 +23,7 @@ const MapView: React.FC = () => {
   // state
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   // refs
   const modal = useRef<HTMLIonModalElement>(null);
@@ -40,6 +41,13 @@ const MapView: React.FC = () => {
       setShowSearch(false);
     }
   }, [location.pathname]);
+
+  // Hack way to get the map to render fully before rendering it in the dom
+  useEffect(() => {
+    setTimeout(() => {
+      setMapLoaded(true);
+    }, 500);
+  }, []);
 
   const handleSearchClick = () => {
     history.push("/search");
@@ -67,31 +75,35 @@ const MapView: React.FC = () => {
             Loading map...
           </div>
         )} */}
-        <MapContainer
-          center={matamorosCoords}
-          zoom={14}
-          style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 1,
-          }}
-          zoomControl={false}
-          attributionControl={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            // eventHandlers={{
-            //   load: () => map.invalidateSize(),
-            // }}
-          />
-          <MapRoutes onSelect={setSelectedRoute} />
-        </MapContainer>
+        {!mapLoaded ? (
+          <>Loading...</>
+        ) : (
+          <MapContainer
+            center={matamorosCoords}
+            zoom={20}
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 1,
+            }}
+            zoomControl={false}
+            attributionControl={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              // eventHandlers={{
+              //   load: () => map.invalidateSize(),
+              // }}
+            />
+            <MapRoutes onSelect={setSelectedRoute} />
+          </MapContainer>
+        )}
 
         <IonFab
           slot="fixed"
