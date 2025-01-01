@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   IonContent,
   IonPage,
@@ -8,6 +8,7 @@ import {
 } from "@ionic/react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { LatLngExpression } from "leaflet";
+import { useHistory, useLocation } from "react-router-dom";
 
 /* Components */
 import RouteDetails from "../RouteDetails";
@@ -26,9 +27,22 @@ const MapView: React.FC = () => {
   // refs
   const modal = useRef<HTMLIonModalElement>(null);
 
+  // DOM
+  const history = useHistory();
+  const location = useLocation();
+
   const matamorosCoords: LatLngExpression = [25.869, -97.5027];
 
+  useEffect(() => {
+    if (location.pathname === "/search") {
+      setShowSearch(true);
+    } else {
+      setShowSearch(false);
+    }
+  }, [location.pathname]);
+
   const handleSearchClick = () => {
+    history.push("/search");
     setShowSearch(true);
   };
 
@@ -92,7 +106,10 @@ const MapView: React.FC = () => {
 
         <IonModal
           isOpen={showSearch}
-          onDidDismiss={() => setShowSearch(false)}
+          onDidDismiss={() => {
+            setShowSearch(false);
+            history.push("/");
+          }}
           breakpoints={[0, 0.5, 0.75]}
           initialBreakpoint={0.75}
           className="sheet-modal"
