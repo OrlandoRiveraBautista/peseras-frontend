@@ -1,0 +1,27 @@
+.stretchable-fab {
+  width: 100%;
+
+  ion-fab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto; /* Make the width flexible */
+    padding: 0 16px; /* Add padding to the sides */
+    margin: 0 16px;
+    --border-radius: 50px; /* Optional: make it pill-shaped */
+    height: 50px; /* Keep the height consistent */
+    font-size: 16px; /* Adjust font size for the text */
+    background-color: var(--ion-color-primary); /* Primary color */
+    color: white; /* Text color */
+
+    &:hover {
+      background-color: var(
+        --ion-color-primary-shade
+      ); /* Change color on hover */
+    }
+  }
+}
+
+.stretchable-fab .fab-text {
+  margin-left: 8px; /* Add some space between the icon and text */
+}
