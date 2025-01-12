@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useMap, Polyline } from "react-leaflet";
 import { LatLngBounds } from "leaflet";
 import { routes } from "../../misc/routeData";
+import { useHistory } from "react-router-dom";
 
 interface IMapRoutes {
   onSelect: (id: string | null) => void;
@@ -10,6 +11,9 @@ interface IMapRoutes {
 const MapRoutes: React.FC<IMapRoutes> = ({ onSelect }) => {
   const map = useMap();
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  // DOM
+  const history = useHistory();
 
   useEffect(() => {
     if (!mapLoaded) {
@@ -29,6 +33,7 @@ const MapRoutes: React.FC<IMapRoutes> = ({ onSelect }) => {
           eventHandlers={{
             click: (e) => {
               e.originalEvent.stopPropagation();
+              history.push("/route/" + route.id);
               onSelect(route.id);
             },
           }}
