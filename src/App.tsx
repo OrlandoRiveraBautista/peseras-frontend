@@ -3,6 +3,9 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route } from "react-router-dom";
 
+/* Theme */
+import "./theme/components/index.scss";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
