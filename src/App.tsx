@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 
 /* Theme */
 import "./theme/components/index.scss";
+import "./theme/variables.scss";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
