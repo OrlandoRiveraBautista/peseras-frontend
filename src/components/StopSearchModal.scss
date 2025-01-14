@@ -1,0 +1,16 @@
+#stop-search-modal {
+  ion-toolbar {
+    margin-top: 24px;
+
+    ion-searchbar {
+      .searchbar-input-container {
+        --border-radius: 28px;
+        padding: 12px 0;
+
+        .searchbar-search-icon.sc-ion-searchbar-md {
+          top: 22px;
+        }
+      }
+    }
+  }
+}
