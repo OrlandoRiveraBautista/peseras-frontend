@@ -12,7 +12,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 /* Components */
 import RouteDetails from "../RouteDetails";
-import StopSearch from "../StopSearch";
+import StopSearchModal from "../StopSearchModal";
 import MapRoutes from "./MapRoutes";
 
 /* Styles */
@@ -41,6 +41,10 @@ const MapView: React.FC = () => {
     } else {
       setShowSearch(false);
     }
+
+    if (location.pathname.includes("/route")) {
+      console.log(setSelectedRoute);
+    }
   }, [location.pathname]);
 
   // Hack way to get the map to render fully before rendering it in the dom
@@ -64,6 +68,7 @@ const MapView: React.FC = () => {
         {!mapLoaded ? (
           <>Loading...</>
         ) : (
+          // Map container
           <MapContainer
             center={matamorosCoords}
             zoom={20}
@@ -84,21 +89,27 @@ const MapView: React.FC = () => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+            {/* Map Routes */}
             <MapRoutes onSelect={setSelectedRoute} />
           </MapContainer>
         )}
 
+        {/* Fab button to open the bus stop search */}
         <IonFab
           slot="fixed"
           vertical="bottom"
           horizontal="center"
           className="stretchable-fab"
         >
-          <IonFabButton onClick={handleSearchClick}>
+          <IonFabButton color="tertiary" onClick={handleSearchClick}>
             Haga clic en una ruta para ver detalles
           </IonFabButton>
         </IonFab>
 
+        {/*
+         * ------------ Modals -----------
+         */}
+        {/* Stop Search Modal */}
         <IonModal
           isOpen={showSearch}
           onDidDismiss={() => {
@@ -107,18 +118,17 @@ const MapView: React.FC = () => {
           }}
           breakpoints={[0, 0.5, 0.75]}
           initialBreakpoint={0.75}
-          className="sheet-modal"
         >
-          <StopSearch />
+          <StopSearchModal />
         </IonModal>
 
+        {/* Route Details Modal */}
         <IonModal
           ref={modal}
           isOpen={!!selectedRoute}
           onDidDismiss={() => setSelectedRoute(null)}
           breakpoints={[0, 0.5, 0.75]}
           initialBreakpoint={0.5}
-          className="sheet-modal"
         >
           <RouteDetails
             routeId={selectedRoute}
