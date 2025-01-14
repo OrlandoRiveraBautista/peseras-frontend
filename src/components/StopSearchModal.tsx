@@ -13,9 +13,11 @@ import {
 } from "@ionic/react";
 import { bus, swapHorizontal } from "ionicons/icons";
 
+import "./StopSearchModal.scss";
+
 const StopSearch: React.FC = () => {
   return (
-    <IonPage>
+    <IonPage id="stop-search-modal">
       <IonHeader>
         <IonToolbar>
           <IonSearchbar placeholder="Busca una parada..." animated={true} />
@@ -23,7 +25,7 @@ const StopSearch: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonItem button routerLink="/route/1">
+          <IonItem button routerLink="/route/blue">
             <IonIcon icon={bus} slot="start" />
             <IonLabel>
               <h2>Calle Calixto de Ayala</h2>
@@ -36,7 +38,7 @@ const StopSearch: React.FC = () => {
               4 buses
             </IonBadge>
           </IonItem>
-          <IonItem button routerLink="/route/2">
+          <IonItem button routerLink="/route/green">
             <IonIcon icon={bus} slot="start" />
             <IonLabel>
               <h2>Calle Diagonal Cuauhtemoc</h2>
